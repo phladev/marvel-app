@@ -6,11 +6,13 @@ import { Image, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-na
 import { Link } from 'expo-router';
 
 interface DataInfo {
+  name: string
   email: string,
   password: string
 }
 
 const schema = yup.object({
+  name: yup.string().required('Digite seu nome'),
   email: yup.string().email("Insira um Email Válido").required("Digite seu Email"),
   password: yup.string()
   .required('Senha é obrigatória')
@@ -37,6 +39,23 @@ const RegisterPage = () => {
         <View style={styles.formContainer}>
 
           <View style={styles.form}>
+            <Text style={styles.label}>Nome</Text>
+            <Controller 
+              control={control}
+              name="name"
+              render={({field: {onChange, onBlur, value}}) => (
+                <TextInput 
+                style={styles.input}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value} 
+                placeholder="Digite Seu Nome"
+                autoComplete="name"
+              />
+              )}
+            />
+            {errors.name && <Text style={styles.labelError}>{errors.name.message}</Text>}
+
             <Text style={styles.label}>Email</Text>
             <Controller 
               control={control}
