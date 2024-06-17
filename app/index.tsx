@@ -1,17 +1,28 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Image,  StyleSheet, Text, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { Image, StyleSheet, Text, View } from "react-native";
+import Button from "@/components/button/Button";
+import { router } from "expo-router";
 
 export default function WelcomePage() {
+  function handleNavigate() {
+    router.replace('/login') 
+  }
+
   return ( 
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={require('@/assets/images/welcome-bg.jpg')}/>
-      </View>
+        <StatusBar style='light'/>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={require('@/assets/images/welcome-bg.jpg')}/>
+        </View>
 
-      <View style={styles.loginContainer}>
-        <Text>AAAAAAAAA</Text>
-      </View>
+        <View style={styles.loginContainer}>
+          <View style={styles.welcomeContainer}>
+            <Text style={styles.text}>Seja bem vindo ao Marvel App</Text>
+            <Text style={styles.textSm}>Aqui você vai poder ficar sabendo de tudo sobre essas incríveis HQs!</Text>
+            <Button text="Vamos Começar!" variant="primary" onPress={handleNavigate}/>
+          </View>
+        </View>
     </View>
    );
 }
@@ -19,9 +30,8 @@ export default function WelcomePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2C2C2C',
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   imageContainer: {
     flex: 3,
@@ -33,8 +43,26 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   loginContainer: {
-    flex: 2,
-    backgroundColor: '#2C2C2C'
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#2C2C2C',
+    paddingTop: 20
+  },
+  welcomeContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 12,
+  },
+  text: {
+    fontSize: 24,
+    color: '#fff',
+    fontWeight: 'bold'
+  },
+  textSm: {
+    fontSize: 16,
+    color: 'white',
+    textAlign: 'center'
   }
 })
  
