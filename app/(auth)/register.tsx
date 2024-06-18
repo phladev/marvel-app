@@ -1,9 +1,9 @@
-import * as yup from 'yup'
 import Button from "@/components/button/Button";
 import {yupResolver} from '@hookform/resolvers/yup'
 import { Controller, useForm } from "react-hook-form";
 import { Image, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Link } from 'expo-router';
+import { UserSchema } from "@/utils/validation/UserSChema";
 
 interface DataInfo {
   name: string
@@ -11,18 +11,11 @@ interface DataInfo {
   password: string
 }
 
-const schema = yup.object({
-  name: yup.string().required('Digite seu nome'),
-  email: yup.string().email("Insira um Email Válido").required("Digite seu Email"),
-  password: yup.string()
-  .required('Senha é obrigatória')
-  .min(8, 'A senha deve ter pelo menos 8 caracteres')
-  .matches(/[A-Z]/, 'A senha deve conter pelo menos uma letra maiúscula')
-})
+
 
 const RegisterPage = () => {
   const {control, handleSubmit, formState: {errors} } = useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(UserSchema)
   })
 
   function handleRegister(data: DataInfo) {

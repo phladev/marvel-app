@@ -1,26 +1,18 @@
-import * as yup from 'yup'
 import Button from "@/components/button/Button";
 import {yupResolver} from '@hookform/resolvers/yup'
 import { Controller, useForm } from "react-hook-form";
 import { Image, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Link } from 'expo-router';
+import { UserSchema } from "@/utils/validation/UserSChema";
 
 interface DataInfo {
   email: string,
   password: string
 }
 
-const schema = yup.object({
-  email: yup.string().email("Insira um Email Válido").required("Digite seu Email"),
-  password: yup.string()
-  .required('Senha é obrigatória')
-  .min(8, 'A senha deve ter pelo menos 8 caracteres')
-  .matches(/[A-Z]/, 'A senha deve conter pelo menos uma letra maiúscula')
-})
-
 const LoginPage = () => {
   const {control, handleSubmit, formState: {errors} } = useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(UserSchema)
   })
 
   function handleLogIn(data: DataInfo) {
