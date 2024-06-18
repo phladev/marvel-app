@@ -10,15 +10,22 @@ export default function WelcomePage() {
   const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-    });
-
-    return unsubscribe;
+    try {
+     const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if(!user) {
+          return
+        }
+        setUser(user);
+      });
+      
+      return unsubscribe
+    } catch (error) {
+      console.log(error)
+    }
   }, []);
 
   if(user) {
-    router.replace('/home')
+    router.push('/home')
   }
 
   function handleNavigate() {
