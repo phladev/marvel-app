@@ -4,6 +4,9 @@ import { Controller, useForm } from "react-hook-form";
 import { Image, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Link } from 'expo-router';
 import { UserSchema } from "@/utils/validation/UserSChema";
+import { useState } from "react";
+import { auth } from "@/config/fireBase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 interface DataInfo {
   email: string,
@@ -11,13 +14,38 @@ interface DataInfo {
 }
 
 const LoginPage = () => {
-  const {control, handleSubmit, formState: {errors} } = useForm({
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string>('')
+
+  const {control, handleSubmit, reset, formState: {errors} } = useForm({
     resolver: yupResolver(UserSchema)
   })
 
-  function handleLogIn(data: DataInfo) {
-    console.log(data)
+async function handleLogIn({email, password}: DataInfo) {
+  setIsLoading(true)
+  setError('')
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    // Usuário registrado com sucesso
+  } catch (e: any) {
+    handleError(e.code);
+  } finally {
+    setIsLoading(false);
   }
+  reset()
+  }
+
+  const handleError = (errorCode: string) => {
+    switch (errorCode) {
+      case 'auth/invalid-credential':
+        setError('Senha ou Email incorretos. Verifique e tente novamente.');
+        break;
+      default:
+        setError('Ocorreu um erro inesperado. Por favor, tente novamente.');
+        break;
+    }
+  };
+
 
   return ( 
     <SafeAreaView style={styles.container}>
@@ -68,6 +96,7 @@ const LoginPage = () => {
           <Button text="Entrar" variant="primary" onPress={handleSubmit(handleLogIn)}/>
 
           <Text style={styles.text}>Não possui uma conta? <Link style={styles.link} href='/register'>Registre-se aqui</Link></Text>
+          {error && <Text style={{color: '#ff0000', alignSelf: 'center'}}>{error}</Text>}
         </View>
       </View>
     </SafeAreaView>

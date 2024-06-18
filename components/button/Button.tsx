@@ -1,6 +1,6 @@
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, TouchableOpacityProps } from "react-native";
 
-interface ButtonProps {
+interface ButtonProps extends TouchableOpacityProps {
   text: string,
   variant: 'primary' | 'outline',
   onPress: () => void
@@ -19,7 +19,7 @@ const Button = ({text, variant, onPress}: ButtonProps) => {
   }
 
   return ( 
-    <TouchableOpacity style={getStyle()} onPress={onPress}>
+    <TouchableOpacity  style={getStyle()} onPress={onPress}>
       <Text style={{color: '#fff', fontSize: 16}}>{text}</Text>
     </TouchableOpacity>
    );
