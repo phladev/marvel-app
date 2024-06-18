@@ -31,6 +31,7 @@ async function handleRegister({email, password}: DataInfo) {
       handleError(e.code);
     } finally {
       setIsLoading(false);
+      alert('Conta Criada Com sucesso!')
     }
     reset()
   }
