@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Button from "@/components/button/Button";
 import { router } from "expo-router";
+import { User, onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/config/fireBase";
 
 export default function WelcomePage() {
+  const [user, setUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  if(user) {
+    router.replace('/home')
+  }
+
   function handleNavigate() {
     router.replace('/login') 
   }

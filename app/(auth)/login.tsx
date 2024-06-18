@@ -2,7 +2,7 @@ import Button from "@/components/button/Button";
 import {yupResolver} from '@hookform/resolvers/yup'
 import { Controller, useForm } from "react-hook-form";
 import { Image, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { UserSchema } from "@/utils/validation/UserSChema";
 import { useState } from "react";
 import { auth } from "@/config/fireBase";
@@ -33,6 +33,7 @@ async function handleLogIn({email, password}: DataInfo) {
     setIsLoading(false);
   }
   reset()
+  router.replace('/home')
   }
 
   const handleError = (errorCode: string) => {
