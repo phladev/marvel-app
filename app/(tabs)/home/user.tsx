@@ -3,7 +3,7 @@ import { auth } from "@/config/fireBase";
 import { router } from "expo-router";
 import { User, onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const UserPage = () => {

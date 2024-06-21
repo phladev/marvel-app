@@ -1,5 +1,5 @@
 import ComicsPage from "@/components/comics-page/ComicsPage";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomePage = () => {

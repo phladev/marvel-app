@@ -4,9 +4,10 @@ export default function RootLayout() {
   return(
     <Stack>
       <Stack.Screen name='index' options={{headerShown: false}}/>
-      <Stack.Screen name='(auth)/login'  options={{
+      <Stack.Screen name='(auth)/login' options={{
         headerShown: true, 
         title: 'Login', 
+        headerBackVisible: false,
         headerStyle: {backgroundColor: '#2c2c2c',}, 
         headerTitleStyle: {color: '#ffff'}
         }}/>
