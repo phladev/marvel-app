@@ -1,8 +1,9 @@
+import Button from "@/components/button/Button";
 import { auth } from "@/config/fireBase";
 import { router } from "expo-router";
 import { User, onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const UserPage = () => {
@@ -29,19 +30,47 @@ const UserPage = () => {
 
   return ( 
     <SafeAreaView style={styles.container}>
-      <Text>User</Text>
-      <TouchableOpacity onPress={handleLogout}><Text>LOGOUT</Text></TouchableOpacity>
+      <View style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '100%'}}>
+        <View style={styles.userInfo}>
+          {user?.photoURL ? 
+            <Image style={styles.profilePic} source={{uri: user?.photoURL}}/> 
+            : 
+            <Image style={styles.profilePic} source={require('@/assets/images/welcome-bg.jpg')}
+          />}
+          <Text style={styles.userName}>{user?.email}</Text>
+        </View>
+        <View style={{width: 250}}>
+          <Button onPress={handleLogout} text="SAIR" variant="primary"/>
+        </View>
+      </View>
     </SafeAreaView>
    );
 }
 
 const styles = StyleSheet.create({
   container: {
+    paddingHorizontal: 10,
     display: 'flex',
+    alignItems: 'center',
     width: '100%',
     height: '100%',
     backgroundColor: '#2C2C2C',
-  }
+  },
+  userInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 12
+  },
+  profilePic: {
+    width: 200,
+    height: 200,
+    borderRadius: 100
+  },
+  userName: {
+    fontSize: 16,
+    color: '#ffff'
+  },
 })
  
 export default UserPage;

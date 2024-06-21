@@ -30,8 +30,10 @@ export default function Homeayout() {
       <Tabs.Screen
       name='user' 
       options={{
-        headerShown: false, 
+        headerShown: true, 
         title: 'Conta',
+        headerStyle: {backgroundColor: '#2C2C2C'},
+        headerTitleStyle: {fontSize: 32, color: '#ffff'},
         tabBarStyle: {backgroundColor: '#2C2C2C', borderTopColor: '#000'},
         tabBarLabel: ({focused, children}) => {
           if(focused) {
