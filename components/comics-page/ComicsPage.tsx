@@ -1,13 +1,12 @@
 // @ts-nocheck
 import axios from 'axios'
 import { createURL } from "@/config/api";
-import { Text, View, Image } from "react-native";
+import { View, Image, ScrollView } from "react-native";
 import { useEffect, useState } from 'react';
 import { Comic } from '@/types/comics';
-import ComicItem from '../comic-item/ComicItem';
 
 const ComicsPage = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Comic>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,14 +24,13 @@ const ComicsPage = () => {
 
   return ( 
     <View>
-      {data.map(comic => (
-        <View style={{display: 'flex',}}>
-          <View style={{display: 'flex',}}>
-            <Image style={{height: 100, width:100}} source={{uri: `${comic.thumbnail.path}/standard_xlarge.${comic.thumbnail.extension}`}}/>
-            <Text>{comic.title}</Text>
-          </View>
+      <ScrollView>
+        <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around'}}>
+          {data.map((comic: Comic) => (
+            <Image key={comic.id} style={{height: 200, width: 150, resizeMode: 'contain',}} source={{uri: `${comic.thumbnail.path}/standard_xlarge.${comic.thumbnail.extension}`}}/>
+          ))}
         </View>
-      ))}
+      </ScrollView>
     </View>
    );
 }
